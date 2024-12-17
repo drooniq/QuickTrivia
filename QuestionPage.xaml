@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:QuickTrivia.Components"             
+             x:Class="QuickTrivia.QuestionPage"
+             Title="{Binding Title}">
+
+        <Grid RowDefinitions="Auto, Auto, 3*, *"
+              VerticalOptions="FillAndExpand"
+              BackgroundColor="{StaticResource DarkPurple}">
+            
+            <VerticalStackLayout Grid.Row="0">
+                <components:CustomTitleBar TitleText="Quick Trivia" />
+            </VerticalStackLayout>
+
+        <!--<components:InformationView
+            Grid.Row="1"
+            Title="Welcome to Trivia!"
+            TitleAlignment="Center"
+            Subtext="Get ready for a fun trivia game. Test your knowledge with exciting questions!" />-->
+
+        <Frame Grid.Row="2"
+               BackgroundColor="{StaticResource DarkPurple}"
+               BorderColor="{StaticResource DarkPurple}">
+            
+            <Grid RowDefinitions="*,Auto,Auto,Auto,Auto">
+                <components:InformationView
+                Grid.Row="0"
+                Title="Answers!"
+                TitleAlignment="Start"
+                Subtext="Here we will list all the possible answers. Choose the one you think is corret:" />
+
+
+                <Button BackgroundColor="{StaticResource LighterPurple}" HorizontalOptions="Center" Padding="40,0,40,0" Grid.Row="1" x:Name="Btn1" Text="Svar1" Margin="10"/>
+                <Button HorizontalOptions="Center" Padding="40,0,40,0" Grid.Row="2" x:Name="Btn2" Text="Svar2" Margin="10"/>
+                <Button HorizontalOptions="Center" Padding="40,0,40,0" Grid.Row="3" x:Name="Btn3" Text="Svar3" Margin="10"/>
+                <Button HorizontalOptions="Center" Padding="40,0,40,0" Grid.Row="4" x:Name="Btn4" Text="Svar4" Margin="10"/>
+            </Grid>
+        </Frame>
+
+            <!-- Part 3: Button at the bottom -->
+            <Button Grid.Row="3"
+                x:Name="StartTriviaBtn1"
+                Text="Start Trivia!" 
+                SemanticProperties.Hint="Starts the trivia game."
+                BackgroundColor="Green"
+                FontSize="20"
+                Padding="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!--Clicked="OnPlayClick"-->
+
+</ContentPage>

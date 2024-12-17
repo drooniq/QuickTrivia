@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:QuickTrivia.Components"
+             xmlns:vm="clr-namespace:QuickTrivia.ViewModels"
+             x:Class="QuickTrivia.QuestionPage"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto, Auto, 3*, *"
+              VerticalOptions="FillAndExpand"
+              BackgroundColor="{StaticResource DarkPurple}">
+
+        <VerticalStackLayout Grid.Row="0">
+            <components:CustomTitleBar TitleText="Quick Trivia" />
+        </VerticalStackLayout>
+
+        <Frame Grid.Row="1"
+               BackgroundColor="{StaticResource DarkPurple}"
+               BorderColor="{StaticResource DarkPurple}">
+
+            <Grid Grid.Row="2" RowDefinitions="*,Auto,Auto,Auto,Auto">
+                <components:InformationView
+                Grid.Row="0"
+                Title="Question:"
+                TitleAlignment="Start"
+                Subtext="{Binding CurrentQuestion.QuestionText}" />
+
+                <CollectionView Grid.Row="1" ItemsSource="{Binding CurrentQuestion.IncorrectAnswers}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10">
+                                <!-- Button for each answer -->
+                                <Button Text="{Binding}"
+                                        FontSize="16"
+                                        BackgroundColor="{StaticResource LightestPurple}"
+                                        TextColor="White"
+                                        BorderColor="{StaticResource LightestPurple}"
+                                        Padding="10"
+                                        HorizontalOptions="Fill"
+                                        />
+                                <!--Clicked="OnAnswerClicked"-->
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Frame>
+
+        <!-- Part 3: Button at the bottom -->
+        <Button Grid.Row="3"
+                x:Name="NextQuestionBtn"
+                Text="Next Question" 
+                SemanticProperties.Hint="Jump to next question"
+                BackgroundColor="Green"
+                FontSize="20"
+                Padding="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="OnNextQuestionClick"/>
+    </Grid>
+
+    <!---->
+
+</ContentPage>
+    

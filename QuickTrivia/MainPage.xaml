@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:QuickTrivia.Components"             
+             x:Class="QuickTrivia.MainPage"
+             Title="{Binding Title}">
+
+        <Grid RowDefinitions="Auto, Auto, 3*, *"
+              VerticalOptions="FillAndExpand"
+              BackgroundColor="{StaticResource DarkPurple}">
+            
+            <VerticalStackLayout Grid.Row="0">
+                <components:CustomTitleBar TitleText="Quick Trivia" />
+            </VerticalStackLayout>
+
+        <components:InformationView
+            Grid.Row="1"
+            Title="Welcome to Quick Trivia!"
+            TitleAlignment="Center"
+            Margin="10"
+            Subtext="Get ready for a fun trivia game.&#10;Test your knowledge with exciting questions!&#10;&#10;The game will eventually have categories, difficult options, and a few more features." />
+
+        <Button Grid.Row="2"
+                x:Name="StartTriviaBtn"
+                Text="Start Trivia!" 
+                SemanticProperties.Hint="Starts the trivia game."
+                BackgroundColor="Green"
+                FontSize="20"
+                Padding="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="OnPlayTriviaClicked"/>
+        </Grid>
+
+</ContentPage>
