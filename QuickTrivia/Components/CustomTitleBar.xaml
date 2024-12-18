@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:QuickTrivia.Components"             
              x:Class="QuickTrivia.Components.CustomTitleBar"
              BackgroundColor="{StaticResource LighterPurple}" >
     
@@ -15,7 +16,8 @@
                Grid.Column="0" />
         
         <Label Grid.Column="1"
-               Text="{Binding TitleText, Mode=OneWay}"
+               
+               Text="{Binding TitleText, Mode=OneWay, Source={RelativeSource AncestorType={x:Type components:CustomTitleBar}}}"
                FontFamily="LuckiestGuy-Regular"
                FontSize="50"
                TextColor="{StaticResource OrangeGold}"

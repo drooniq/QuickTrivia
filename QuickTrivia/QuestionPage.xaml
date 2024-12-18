@@ -3,10 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:components="clr-namespace:QuickTrivia.Components"
              xmlns:vm="clr-namespace:QuickTrivia.ViewModels"
+             xmlns:models="clr-namespace:QuickTrivia.Models"
              x:Class="QuickTrivia.QuestionPage"
              Title="{Binding Title}">
 
-    <Grid RowDefinitions="Auto, Auto, 3*, *"
+    <Grid RowDefinitions="Auto, Auto, 3*, Auto"
               VerticalOptions="FillAndExpand"
               BackgroundColor="{StaticResource DarkPurple}">
 
@@ -18,31 +19,51 @@
                BackgroundColor="{StaticResource DarkPurple}"
                BorderColor="{StaticResource DarkPurple}">
 
-            <Grid Grid.Row="2" RowDefinitions="*,Auto,Auto,Auto,Auto">
+            <Grid Grid.Row="2" RowDefinitions="*, 2*">
                 <components:InformationView
                 Grid.Row="0"
                 Title="Question:"
                 TitleAlignment="Start"
                 Subtext="{Binding CurrentQuestion.QuestionText}" />
 
-                <CollectionView Grid.Row="1" ItemsSource="{Binding CurrentQuestion.IncorrectAnswers}">
+                <!--<CollectionView Grid.Row="1" ItemsSource="{Binding CurrentQuestion.IncorrectAnswers}">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout Padding="10">
-                                <!-- Button for each answer -->
-                                <Button Text="{Binding}"
+                            <StackLayout Padding="15">
+                                <Button x:Name="AnswerButton"
+                                        Text="{Binding}"
                                         FontSize="16"
                                         BackgroundColor="{StaticResource LightestPurple}"
                                         TextColor="White"
                                         BorderColor="{StaticResource LightestPurple}"
-                                        Padding="10"
+                                        Padding="20"
                                         HorizontalOptions="Fill"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuestionViewModel}}, Path=ChosenAnswerCommand}"
+                                        CommandParameter="{x:Reference AnswerButton}"
                                         />
-                                <!--Clicked="OnAnswerClicked"-->
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>-->
+
+                <CollectionView Grid.Row="1" ItemsSource="{Binding Answers}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="15">
+                                <Button Text="{Binding Text}"
+                                        FontSize="16"
+                                        BackgroundColor="{Binding BackgroundColor}"
+                                        TextColor="White"
+                                        BorderColor="{StaticResource LightestPurple}"
+                                        Padding="20"
+                                        HorizontalOptions="Fill" 
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:QuestionViewModel}}, Path=ChosenAnswerCommand}"
+                                        CommandParameter="{Binding .}" />
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
+
             </Grid>
         </Frame>
 
@@ -53,13 +74,29 @@
                 SemanticProperties.Hint="Jump to next question"
                 BackgroundColor="Green"
                 FontSize="20"
+                Margin="0,0,0,50"
                 Padding="20"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                Clicked="OnNextQuestionClick"/>
+                Command="{Binding NextQuestionCommand}"
+                IsEnabled="{Binding CanExecuteNextQuestion}">
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <!-- disabled -->
+                            <DataTrigger TargetType="Button" Binding="{Binding IsEnabled, Source={x:Reference NextQuestionBtn}}" Value="False">
+                                <Setter Property="IsVisible" Value="False"/>
+                            </DataTrigger>
+
+                            <!-- enabled -->
+                            <DataTrigger TargetType="Button" Binding="{Binding IsEnabled, Source={x:Reference NextQuestionBtn}}" Value="True">
+                                <Setter Property="IsVisible" Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+        </Button>
     </Grid>
-
-    <!---->
-
 </ContentPage>
     

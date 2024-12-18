@@ -1,4 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
+using QuickTrivia.Services;
+using QuickTrivia.ViewModels;
 
 namespace QuickTrivia
 {
@@ -15,8 +17,12 @@ namespace QuickTrivia
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddSingleton<ApiService>();
+            builder.Services.AddTransient<QuestionPage>();
+            builder.Services.AddTransient<QuestionViewModel>();
+
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

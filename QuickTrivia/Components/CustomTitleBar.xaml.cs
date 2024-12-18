@@ -16,6 +16,5 @@ public partial class CustomTitleBar : ContentView
     public CustomTitleBar()
 	{
         InitializeComponent();
-        BindingContext = this;
 	}
 }

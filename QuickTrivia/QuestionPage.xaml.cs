@@ -6,19 +6,12 @@ namespace QuickTrivia;
 
 public partial class QuestionPage : ContentPage
 {
-    private QuestionViewModel viewModel;
-    public QuestionPage()
+    public QuestionPage(QuestionViewModel viewModel)
     {
         InitializeComponent();
 
-        viewModel = new QuestionViewModel();
         BindingContext = viewModel;
 
         viewModel.LoadQuestionsAsync();
-    }
-
-    public async void OnNextQuestionClick(object sender, EventArgs e)
-    {
-        viewModel.NextQuestion();
     }
 }
