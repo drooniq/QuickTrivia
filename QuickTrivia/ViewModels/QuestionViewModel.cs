@@ -4,8 +4,6 @@ using QuickTrivia.Models;
 using QuickTrivia.Services;
 using System.Collections.ObjectModel;
 using System.Net;
-using Microsoft.Maui.Graphics;
-using AndroidX.CoordinatorLayout.Widget;
 
 namespace QuickTrivia.ViewModels
 {
@@ -29,10 +27,11 @@ namespace QuickTrivia.ViewModels
         [ObservableProperty]
         private Question? currentQuestion;
 
-        private bool IsAnswered = false;
+        [ObservableProperty]
+        private bool isAnswered = false;
 
         public bool CanExecuteNextQuestion => Questions.Count > 0 && _currentQuestionIndex < Questions.Count - 1;
-        public bool CanExecuteAnswerButtons => IsAnswered is false;
+        public bool CanExecuteAnswerButtons => !IsAnswered;
 
         public QuestionViewModel(ApiService apiService)
         {
@@ -132,23 +131,8 @@ namespace QuickTrivia.ViewModels
                     answer.BackgroundColor = Colors.Green;
             }
 
-            //foreach(var answer in Answers)
-            //{
-            //    if (answer.IsCorrect)
-            //    {
-            //        answer.Text = "CORRECT ANSWER";
-            //    }
-            //    else
-            //    {
-            //        answer.Text = "WRONG ANSWER";
-            //    }
-
-            //}
-
-            //foreach (var answer in Answers)
-            //{
-            //    answer.BackgroundColor = answer.IsCorrect ? Color.FromRgba(0, 255, 0, 100) : Color.FromRgba(255, 0, 0, 100);
-            //}
+            OnPropertyChanged(nameof(CanExecuteAnswerButtons));
+            chosenAnswerCommand.NotifyCanExecuteChanged();
         }
 
         private Question DecodeHtmlEntitiesInQuestion(Question question)
