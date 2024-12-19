@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:components="clr-namespace:QuickTrivia.Components"             
+             xmlns:vm="clr-namespace:QuickTrivia.ViewModels"             
+             x:Class="QuickTrivia.ResultPage"
+             Title="{Binding Title}">
+
+    <Grid RowDefinitions="Auto, Auto, 3*, *"
+              VerticalOptions="FillAndExpand"
+              BackgroundColor="{StaticResource DarkPurple}">
+
+        <VerticalStackLayout Grid.Row="0">
+            <components:CustomTitleBar TitleText="Quick Trivia" />
+        </VerticalStackLayout>
+
+        <components:InformationView
+            Grid.Row="1"
+            Title="Result!"
+            TitleAlignment="Center"
+            Margin="10"
+            Subtext="Thank you for playing. If you wish to continue playing then choose to start new trivia" />
+
+        <!--<Label Grid.Row="2"
+               x:Name="CorrectAnswersLabel"
+               Text="{Binding ScoreText}"
+               FontSize="20"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="White" />-->
+
+        <Button Grid.Row="3"
+                Text="Return to first page" 
+                BackgroundColor="Green"
+                FontSize="20"
+                Padding="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Clicked="OnGoToHomeClicked"/>
+    </Grid>
+
+</ContentPage>

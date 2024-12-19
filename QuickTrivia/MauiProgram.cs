@@ -20,6 +20,8 @@ namespace QuickTrivia
             builder.Services.AddSingleton<ApiService>();
             builder.Services.AddTransient<QuestionPage>();
             builder.Services.AddTransient<QuestionViewModel>();
+            builder.Services.AddTransient<ResultPage>();
+            builder.Services.AddTransient<ResultViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

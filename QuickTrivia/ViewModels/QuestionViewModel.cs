@@ -22,6 +22,8 @@ namespace QuickTrivia.ViewModels
             }
         }
 
+        public int CorrectAnswersCount = 0;
+
         private int _currentQuestionIndex;
 
         [ObservableProperty]
@@ -32,6 +34,9 @@ namespace QuickTrivia.ViewModels
 
         public bool CanExecuteNextQuestion => Questions.Count > 0 && _currentQuestionIndex < Questions.Count - 1;
         public bool CanExecuteAnswerButtons => !IsAnswered;
+        public bool ShowFinishButton => Questions.Count > 0 && _currentQuestionIndex == Questions.Count - 1 && IsAnswered;
+
+
 
         public QuestionViewModel(ApiService apiService)
         {
@@ -59,6 +64,7 @@ namespace QuickTrivia.ViewModels
 
         public async Task LoadQuestionsAsync()
         {
+            CorrectAnswersCount = 0;
             var fetchedQuestions = await _apiService.GetQuestionsAsync();
 
             foreach (var question in fetchedQuestions)
@@ -124,7 +130,10 @@ namespace QuickTrivia.ViewModels
             foreach (var answer in Answers)
             {
                 if (answer.IsCorrect && answer.Equals(selectedAnswer))
+                {
                     answer.BackgroundColor = Colors.Green;
+                    CorrectAnswersCount++;
+                }
                 else if (answer.Equals(selectedAnswer))
                     answer.BackgroundColor = Colors.Red;
                 else if (answer.IsCorrect)
@@ -132,7 +141,22 @@ namespace QuickTrivia.ViewModels
             }
 
             OnPropertyChanged(nameof(CanExecuteAnswerButtons));
+            OnPropertyChanged(nameof(ShowFinishButton));
             chosenAnswerCommand.NotifyCanExecuteChanged();
+            FinishQuizCommand.NotifyCanExecuteChanged();
+        }
+
+        [RelayCommand]
+        public async Task FinishQuiz()
+        {
+            //if (App.Current.MainPage is NavigationPage navigationPage)
+            //{
+            //    await navigationPage.Navigation.PushAsync(new ResultPage(CorrectAnswersCount));
+            //}
+            //await Shell.Current.GoToAsync($"ResultPage");  //?score={correctAnswers}
+
+            //[QueryProperty(nameof(Score), "score")]
+            //public int Score { get; set; }
         }
 
         private Question DecodeHtmlEntitiesInQuestion(Question question)

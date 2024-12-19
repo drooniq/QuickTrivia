@@ -79,6 +79,19 @@
                     </Style>
                 </Button.Style>
         </Button>
+
+        <Button Grid.Row="3"
+                Text="Finish Quiz"
+                SemanticProperties.Hint="Complete the quiz"
+                BackgroundColor="{StaticResource TransparentBlackColor}"
+                TextColor="{StaticResource OrangeGold}"
+                FontSize="20"
+                Margin="0,0,0,50"
+                Padding="20"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                IsVisible="{Binding ShowFinishButton}"
+                Clicked="OnGoToResultPageClicked" />
     </Grid>
 </ContentPage>
     
